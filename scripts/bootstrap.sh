@@ -9,7 +9,9 @@ fi
 
 qs_enable_epel &> /var/log/userdata.qs_enable_epel.log || true
 
-qs_retry_command 25 aws s3 cp ${QS_S3URI}scripts/redhat_ose-register-${OCP_VERSION}.sh ~/redhat_ose-register.sh
+#qs_retry_command 25 aws s3 cp ${QS_S3URI}scripts/redhat_ose-register-${OCP_VERSION}.sh ~/redhat_ose-register.sh
+REG_URL=https://raw.githubusercontent.com/bostrick/quickstart-redhat-openshift/bostrick-patch-register-org/scripts/redhat_ose-register-3.10.sh
+curl -o ~/redhat-ose-register.sh $REG_URL
 chmod 755 ~/redhat_ose-register.sh
 qs_retry_command 25 ~/redhat_ose-register.sh ${RH_USER} ${RH_PASS} ${RH_POOLID}
 
